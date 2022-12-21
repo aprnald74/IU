@@ -13,8 +13,19 @@ public class PlayerConter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //float h = Input.GetAxis("Horizontal");
+        float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
-        print(v);
+        //print(v);
+        Vector3 dir = new Vector3 (h, v, 0);
+        //transform.position += dir;
+        GetComponent<Rigidbody2D>().velocity = (dir) * 10;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("WALL"))
+        {
+            GetComponent<SpriteRenderer>().color = collision.collider.GetComponent<SpriteRenderer>().color;
+        }
     }
 }
